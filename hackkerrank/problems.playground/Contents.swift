@@ -34,3 +34,36 @@ func cavityMap(grid: [String]) -> [String] {
     return outputGrid
 }
 
+// MARK: - Palindrome index
+
+func palindromeIndex(s: String) -> Int {
+    var str: [Character] = Array(s)
+    var forwardHalf = String()
+    var backwardHalf = String()
+    var output = 0
+    var forwardIndex: Int = 0
+    var backwardIndex: Int {
+        str.count - 1 - forwardIndex
+    }
+    
+    main: for index in 0...s.count {
+        for _ in 0...str.count / 2 - 1 {
+            forwardHalf.append(str[forwardIndex])
+            backwardHalf.append(str[backwardIndex])
+            forwardIndex += 1
+        }
+
+        if (forwardHalf == backwardHalf) && !forwardHalf.isEmpty {
+            output = index - 1
+            break main
+        }
+        
+        str = Array(s)
+        forwardIndex = 0
+        forwardHalf.removeAll()
+        backwardHalf.removeAll()
+        str.remove(at: index)
+    }
+    return output
+}
+
