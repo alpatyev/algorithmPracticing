@@ -37,7 +37,7 @@ func cavityMap(grid: [String]) -> [String] {
 
 // MARK: - Palindrome index
 
-func palindromeIndex(s: String) -> Int {
+func slowPalindromeIndex(s: String) -> Int {
     var str: [Character] = Array(s)
     var forwardHalf = String()
     var backwardHalf = String()
@@ -68,28 +68,24 @@ func palindromeIndex(s: String) -> Int {
     return output
 }
 
-func ppalindromeIndex(s: String) -> Int {
-    var line = ArraySlice<Character>(s)
-    var palindrome: Bool {
-        let lhs = line.count % 2 == 0 ? line.count / 2 - 1: line.count / 2
-        let rhs = line.count / 2
-        return line[0...lhs] == ArraySlice(line[rhs..<line.count].reversed()) ? true: false
-    }
-    var isPalindrome: (ArraySlice<Character>) -> Bool = { str in
+func palindromeIndex(s: String) -> Int {
+    let line = ArraySlice<Character>(s)
+    let isPalindrome: (ArraySlice<Character>) -> Bool = { str in
         let lhs = str.count % 2 == 0 ? str.count / 2 - 1: str.count / 2
         let rhs = str.count / 2
         return str[0...lhs] == ArraySlice(str[rhs..<str.count].reversed()) ? true: false
     }
-    if palindrome {
-        print("already palindrome: exit with -1")
+    
+    if isPalindrome(line) {
         return -1
     } else {
         for index in 0..<line.count {
-            let sliced = line[0..<0 + index] + line[index + 1..<line.count]
-            print(sliced)
-            print(isPalindrome(sliced))
+            if isPalindrome(line[0..<0 + index] + line[index + 1..<line.count]) {
+                return index
+            }
         }
     }
+    
     return -1
 }
-print(ppalindromeIndex(s: "133"))
+print(palindromeIndex(s: "aaab"))
