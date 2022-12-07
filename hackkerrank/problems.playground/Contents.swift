@@ -1,3 +1,4 @@
+import CoreGraphics
 
 // MARK: - Cavity map
 
@@ -67,3 +68,28 @@ func palindromeIndex(s: String) -> Int {
     return output
 }
 
+func ppalindromeIndex(s: String) -> Int {
+    var line = ArraySlice<Character>(s)
+    var palindrome: Bool {
+        let lhs = line.count % 2 == 0 ? line.count / 2 - 1: line.count / 2
+        let rhs = line.count / 2
+        return line[0...lhs] == ArraySlice(line[rhs..<line.count].reversed()) ? true: false
+    }
+    var isPalindrome: (ArraySlice<Character>) -> Bool = { str in
+        let lhs = str.count % 2 == 0 ? str.count / 2 - 1: str.count / 2
+        let rhs = str.count / 2
+        return str[0...lhs] == ArraySlice(str[rhs..<str.count].reversed()) ? true: false
+    }
+    if palindrome {
+        print("already palindrome: exit with -1")
+        return -1
+    } else {
+        for index in 0..<line.count {
+            let sliced = line[0..<0 + index] + line[index + 1..<line.count]
+            print(sliced)
+            print(isPalindrome(sliced))
+        }
+    }
+    return -1
+}
+print(ppalindromeIndex(s: "133"))
