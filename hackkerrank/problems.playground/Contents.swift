@@ -68,7 +68,7 @@ func slowPalindromeIndex(s: String) -> Int {
     return output
 }
 
-func palindromeIndex(s: String) -> Int {
+func otherSlowPalindromeIndex(s: String) -> Int {
     let line = ArraySlice<Character>(s)
     let isPalindrome: (ArraySlice<Character>) -> Bool = { str in
         let lhs = str.count % 2 == 0 ? str.count / 2 - 1: str.count / 2
@@ -88,4 +88,26 @@ func palindromeIndex(s: String) -> Int {
     
     return -1
 }
-print(palindromeIndex(s: "aaab"))
+
+func nextSlowPalindromeIndex(s: String) -> Int {
+    var tempString: [Character] = Array(s)
+    var isPalindrome: Bool {
+        tempString == tempString.reversed() ? true: false
+    }
+
+    if isPalindrome {
+        return -1
+    } else {
+        for index in 0..<s.count {
+            tempString = Array(s)
+            tempString.remove(at: index)
+            if isPalindrome {
+                return index
+            }
+        }
+    }
+    
+    return -1
+}
+
+print(nextSlowPalindromeIndex(s: "3233"))
