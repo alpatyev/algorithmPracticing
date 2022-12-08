@@ -85,7 +85,6 @@ func otherSlowPalindromeIndex(s: String) -> Int {
             }
         }
     }
-    
     return -1
 }
 
@@ -106,8 +105,50 @@ func nextSlowPalindromeIndex(s: String) -> Int {
             }
         }
     }
-    
     return -1
 }
 
-print(nextSlowPalindromeIndex(s: "3233"))
+
+// MARK: - Priyanka and toys
+
+func toys(w: [Int]) -> Int {
+        var count = 0
+        var pointer = 0
+        var correction = 1
+        let sorted = w.sorted(by: { $0 < $1 })
+        print(sorted, "\n")
+        while pointer < w.count {
+            correction = 1
+            print("while \(pointer) < \(w.count)")
+            for index in pointer + 1..<w.count {
+                print("    for \(index) in \(pointer)..<\(w.count)")
+                print("       ", sorted[index] - sorted[pointer])
+                count += 1
+                if sorted[index] - sorted[pointer] < 4 {
+                    print("       ", sorted[pointer], sorted[index], "diff:", sorted[index] - sorted[pointer])
+                    correction += 1
+                } else {
+                    print("       ", sorted[pointer], sorted[index], "break")
+                    correction = count
+                    break
+                }
+            }
+            pointer += 1
+            pointer += correction
+        }
+        return count
+}
+
+//print("\nexit:", toys(w: [82, 75, 19, 35, 67, 5, 54, 7, 31, 46]))
+print("\nexit:", toys(w: [1, 2, 9, 16, 17, 18, 19]))
+
+
+
+
+
+
+
+
+
+
+
