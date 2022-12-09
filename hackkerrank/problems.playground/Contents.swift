@@ -1,4 +1,4 @@
-import CoreGraphics
+import CoreFoundation
 
 // MARK: - Cavity map
 
@@ -123,5 +123,23 @@ func toys(w: [Int]) -> Int {
         }
     }
     return count
+}
+
+// MARK: - Manasa and stones
+
+func stones(n: Int, a: Int, b: Int) -> [Int] {
+    var result = [Int]()
+    
+    if a == b {
+        result.append(a * (n - 1))
+    } else {
+        let (x, y) = a > b ? (b, a): (a, b)
+        
+        for i in 0..<n {
+            result.append(x * ((n - 1) - i ) + (y * i))
+        }
+
+    }
+    return result
 }
 
